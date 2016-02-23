@@ -277,8 +277,6 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 
 		fixContentHeight(page);
 
-		Utils.forEach(page.querySelectorAll('.app-button'), attachButtonEvent);
-
 		//Attach click events for buttons added later on
 		page.addEventListener('DOMNodeInserted', function (e) {
 			var element = e.srcElement;
@@ -288,6 +286,9 @@ App._Pages = function (window, document, Clickable, Scrollable, App, Utils, Even
 		});
 
 		populatePage(pageName, pageManager, page, args);
+
+		//-Apply click events to buttons on 'page' AFTER it's populated
+		Utils.forEach(page.querySelectorAll('.app-button'), attachButtonEvent);
 
 		page.addEventListener(eventTypeToName(EVENTS.SHOW), function () {
 			setTimeout(function () {
